@@ -1,0 +1,104 @@
+def get_data():
+    a=input()
+    b=input()
+    c=input()
+    d=input()
+    e=input()
+    f=input()
+    return [a,b,c,d,e,f]
+
+def iran():
+    for i in range(3):
+        a=games[i]
+        a=a.strip()
+        result["iran"]["goal diffrence"] += int(a[0]) - int(a[2])
+        if a[0] > a[2]:
+            result["iran"]["wins"] += 1
+            result["iran"]["points"] += 3
+        elif a[0] == a[2]:
+            result["iran"]["draws"] += 1
+            result["iran"]["points"] += 1
+        else:
+            result["iran"]["loses"] += 1
+def spain():
+    spain=0,3,4
+    change=games.get(0)
+    change=change.strip()
+    change=change[2]+change[1]+change[0]
+    games[0]=change
+    for i in spain:
+        a=games[i]
+        a=a.strip()
+        result["spain"]["goal diffrence"] += int(a[0]) - int(a[2])
+        if a[0] > a[2]:
+            result["spain"]["wins"] += 1
+            result["spain"]["points"] += 3
+        elif a[0] == a[2]:
+            result["spain"]["draws"] += 1
+            result["spain"]["points"] += 1
+        else:
+            result["spain"]["loses"] += 1
+    change=games.get(0)
+    change=change.strip()
+    change=change[2]+change[1]+change[0]
+    games[0]=change
+def morocco():
+    morocco=2,4,5
+    for i in morocco:
+        a=games[i]
+        a=a.strip()
+        result["morocco"]["goal diffrence"] += int(a[0]) - int(a[2])
+        if a[0] < a[2]:
+            result["morocco"]["wins"] += 1
+            result["morocco"]["points"] += 3
+        elif a[0] == a[2]:
+            result["morocco"]["draws"] += 1
+            result["morocco"]["points"] += 1
+        else:
+            result["morocco"]["loses"] += 1
+def portugal():
+    portugal=1,3,5
+    change=games.get(5)
+    change=change.strip()
+    change=change[2]+change[1]+change[0]
+    games[5]=change
+    for i in portugal:
+        a=games[i]
+        a=a.strip()
+        result["portugal"]["goal diffrence"] += int(a[0]) - int(a[2])
+        if a[0] < a[2]:
+            result["portugal"]["wins"] += 1
+            result["portugal"]["points"] += 3
+        elif a[0] == a[2]:
+            result["portugal"]["draws"] += 1
+            result["portugal"]["points"] += 1
+        else:
+            result["portugal"]["loses"] += 1
+    change=games.get(5)
+    change=change.strip()
+    change=change[2]+change[1]+change[0]
+    games[5]=change
+result={"Iran":{"wins":0 , "points":0 , "draws":0 ,
+        "goal diffrence":0 ,"points":0,"loses":0},
+        "Spain":{"wins":0 , "points":0 , "draws":0 ,
+        "goal diffrence":0 ,"points":0,"loses":0},
+        "Portugal":{"wins":0 , "points":0 , "draws":0 ,
+        "goal diffrence":0 ,"points":0,"loses":0},
+        "Morocco":{"wins":0 , "points":0 , "draws":0 ,
+        "goal diffrence":0 ,"points":0,"loses":0}
+        }
+points=list()
+keys=range(6)
+value=get_data()
+games=dict(zip(keys,value))
+iran()
+spain()
+portugal()
+morocco()
+
+# sorting and printing 
+sorted_results = sorted(result.items(), key=lambda x: x[0])
+sorted_results = sorted(sorted_results, key=lambda x: (-x[1]["points"], -x[1]["wins"], x[0]))
+
+for team, stats in sorted_results:
+    print(f"{team}  wins:{stats['wins']} , loses:{stats['loses']} , draws:{stats['draws']} , goal difference:{stats['goal diffrence']} , points:{stats['points']}")
